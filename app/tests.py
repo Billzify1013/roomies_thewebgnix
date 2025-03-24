@@ -29,3 +29,4 @@ from django.test import TestCase
 # badge
 # offer orr remian price
 
+# pankaj

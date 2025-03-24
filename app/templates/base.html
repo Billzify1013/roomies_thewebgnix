@@ -1,0 +1,346 @@
+{% load static %}
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="{% static 'undercss/assets/'%}"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>BILLZIFY</title>
+
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'undercss/assets/img/favicon/1.png'%}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{% static 'undercss/assets/vendor/fonts/boxicons.css'%}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'undercss/assets/vendor/css/core.css'%}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'undercss/assets/vendor/css/theme-default.css'%}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'undercss/assets/css/demo.css'%}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static 'undercss/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'%}" />
+
+    <link rel="stylesheet" href="{% static 'undercss/assets/vendor/libs/apex-charts/apex-charts.css'%}" />
+
+    
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{% static 'undercss/assets/vendor/js/helpers.js'%}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{% static 'undercss/assets/js/config.js'%}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+
+  <style>
+    #dd1::-webkit-scrollbar {
+      width: 2px;
+    }
+   #dd1::-webkit-scrollbar-track {
+      background-color: none;
+    }
+    #dd1::-webkit-scrollbar-thumb {
+      background-color:#696cff;
+      border-radius:10px;
+    }
+    body {
+      background:white;
+    }
+
+    #smalldivdate {
+        display:none;
+       }
+
+    #bigdivdate {
+           display:block;
+       }
+
+    @media (max-width: 576px) {
+        #smalldivdate {
+         display:block;
+        }
+        #bigdivdate {
+            display:none;
+        }
+      }
+
+      
+  </style>
+
+  
+
+  <body >
+
+    {% comment %} <div class=" card border-radius-0" style="height:70px;position: sticky;top: 0;position: -webkit-sticky;z-index: 1000; ">
+
+     
+    </div> {% endcomment %}
+    <div class="card " style="height:70px; position: sticky; top: 0; z-index: 1000; ">
+      <div class="container d-flex align-items-center justify-content-between">
+        <!-- Logo (Hidden on small screens) -->
+        <img src="{% static 'img\roomy.png'%}" class="logo" height=50 alt="Logo">
+        
+        <div id="bigdivdate">
+        <a data-bs-toggle="modal"
+    data-bs-target="#backDropModaleditrooms">
+        <div class="newcdt card  mt-2 ms-auto" style="border-radius:25px; width: 100%; max-width: 350px;">
+          <h5 class="text pt-3 ps-4 pe-4">
+            Ujjain <span class="text-light"> &nbsp;&nbsp;|&nbsp;&nbsp; </span> <span id="date-span"></span>
+            <span class="text-light"> &nbsp;&nbsp;|&nbsp;&nbsp; </span> 2 Adults
+          </h5>
+        </div> 
+        
+      </a></div>
+
+      <div id="smalldivdate">
+        <a data-bs-toggle="modal"
+    data-bs-target="#backDropModaleditrooms">
+        <div class="newcdt card  mt-2 ms-auto" style="border-radius:25px; width: 100%; max-width: 350px;">
+          <h5 class="text pt-3 ps-4 pe-4">Ujjain <i class='bx bx-search-alt'></i></h5>
+        </div></a>
+      </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block content %}
+    
+    
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+
+     
+  
+    <!-- Date Picker model -->
+<div class="modal fade" id="backDropModaleditrooms" data-bs-backdrop="static" tabindex="-1">
+  <div class="modal-dialog">
+      <form class="modal-content">
+          
+     
+      <div class="modal-header">
+        <h5 class="modal-title" id="backDropModalTitle">Edit Rooms Data</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      
+
+      <div class="modal-body">
+        
+        <div class="mb-3">
+          <label for="date-range" class="form-label">Location</label>
+          <input type="text" class="form-control"  placeholder="GOA" required >
+        </div>
+     
+      <!-- Date Range Picker -->
+<div class="mb-3">
+  <label for="date-range" class="form-label">Check-in and Check-out Dates</label>
+  <input type="text" class="form-control" id="date-range" placeholder="Select dates" readonly required>
+</div>
+
+<div class="mb-3">
+  <label for="date-range" class="form-label">Guest</label>
+  <select class="form-control" >
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+  </select>
+</div>
+
+
+
+
+
+
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button  class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--/ Bootstrap modals -->
+    
+
+<!-- Bootstrap JS and Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Function to format the date as 'day' and 'month' (e.g., '28 March')
+    function formatDate(date) {
+      const day = String(date.getDate()).padStart(2, '0');  // Add leading zero if needed
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const month = monthNames[date.getMonth()];  // Get full month name
+      return `${day} ${month}`;
+    }
+
+    // Get the current date and the next day
+    const currentDate = new Date();
+    const nextDate = new Date();
+    nextDate.setDate(currentDate.getDate() + 1);  // Set next day as the check-out date
+
+    // Format both the dates (only day and month name)
+    const formattedCurrentDate = formatDate(currentDate);
+    const formattedNextDate = formatDate(nextDate);
+
+    // Set the text content to display "28-29 March"
+    const dateSpan = document.getElementById('date-span');
+    dateSpan.textContent = `${formattedCurrentDate.split(' ')[0]}-${formattedNextDate.split(' ')[0]} ${formattedCurrentDate.split(' ')[1]}`;
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Get today's date and the next day for default date selection
+    const currentDate = new Date();
+    const nextDate = new Date();
+    nextDate.setDate(currentDate.getDate() + 1); // Set next day as check-out date
+
+    // Initialize Flatpickr for Date Range Picker
+    const datePicker = flatpickr("#date-range", {
+      mode: "range",          // Enable range selection (check-in & check-out)
+      minDate: "today",       // Disable past dates
+      dateFormat: "d-m-Y",    // Set date format
+      defaultDate: [currentDate, nextDate], // Set default check-in and check-out dates
+      onChange: function(selectedDates) {
+        // Check if two dates are selected (Check-in & Check-out)
+        if (selectedDates.length === 2) {
+          const checkInDate = selectedDates[0];
+          const checkOutDate = selectedDates[1];
+
+          // Calculate the number of nights
+          const timeDifference = checkOutDate - checkInDate;
+          const nights = Math.floor(timeDifference / (1000 * 3600 * 24)); // Convert milliseconds to days
+
+          // Update the nights field with the calculated number of nights
+          document.getElementById('nights').value = `${nights} Nights`;
+        }
+      },
+      onMonthChange: function(selectedDates, dateStr, instance) {
+        // Remove the light blue color when changing months
+        const days = document.querySelectorAll('.flatpickr-day');
+        days.forEach(function(day) {
+          day.classList.remove('selected');
+        });
+      }
+    });
+
+  });
+</script>
+
+       
+
+             <!-- build:js assets/vendor/js/core.js -->
+             <script src="{% static 'undercss/assets/vendor/libs/jquery/jquery.js'%}"></script>
+             <script src="{% static 'undercss/assets/vendor/libs/popper/popper.js'%}"></script>
+             <script src="{% static 'undercss/assets/vendor/js/bootstrap.js'%}"></script>
+             <script src="{% static 'undercss/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js'%}"></script>
+         
+             <script src="{% static 'undercss/assets/vendor/js/menu.js'%}"></script>
+             <!-- endbuild -->
+         
+             <!-- Vendors JS -->
+             <script src="{% static 'undercss/assets/vendor/libs/apex-charts/apexcharts.js'%}"></script>
+         
+             <!-- Main JS -->
+             <script src="{% static 'undercss/assets/js/main.js'%}"></script>
+         
+             <!-- Page JS -->
+             <script src="{% static 'undercss/assets/js/dashboards-analytics.js'%}"></script>
+         
+             <!-- Place this tag in your head or just before your close body tag. -->
+             <script async defer src="https://buttons.github.io/buttons.js"></script>
+      
+          
+      </body>
+      
+      
+      </html>
+      

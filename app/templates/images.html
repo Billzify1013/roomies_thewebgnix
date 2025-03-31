@@ -1,0 +1,197 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% load static%}
+
+
+{% comment %} 
+<div class="container mt-5">
+    {%for i in hotel_data%}
+    <div  class="row">
+        <div class="col-8"><h3 class="mb-5">{{i.name}}</h3></div>
+        <div class="col-4">
+            <a href="{%url 'hotel_view' id=i.id %}" class="float-end btn btn-primary text-white">Back </a>
+        </div>
+    </div>
+    {%endfor%}
+
+    <!-- Category Tabs -->
+    <div id="category-tabs" style="display: flex; gap: 10px; margin-bottom: 10px; overflow-x: auto; white-space: nowrap;">
+ 
+        {% for category in categories %}
+            <button class="category-btn" 
+                    data-category="{{ category.id }}" 
+                    style="padding: 8px 12px; border: none; cursor: pointer; background: gray; color: white;">
+                {{ category.image_category_name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <!-- Images Display -->
+    <div id="image-gallery" style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <!-- Images dynamically show hongi -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let allImages = [
+            {% for image in allimages %}
+                { id: "{{ image.id }}", category: "{{ image.img_category.id }}", url: "{{ image.hotel_img.url }}" },
+            {% endfor %}
+        ];
+
+        let categoryButtons = document.querySelectorAll(".category-btn");
+        let imageGallery = document.getElementById("image-gallery");
+
+        // Function to show images based on selected category
+        function showImages(categoryId) {
+            imageGallery.innerHTML = "";
+            let filteredImages = allImages.filter(img => img.category === categoryId);
+
+            filteredImages.forEach(img => {
+                let imgElement = document.createElement("img");
+                imgElement.src = img.url;
+                imgElement.style.width = "350px";
+                imgElement.style.borderRadius = "8px";
+                imageGallery.appendChild(imgElement);
+            });
+        }
+
+        // Default: Pehli category select aur dikhaye
+        if (categoryButtons.length > 0) {
+            categoryButtons[0].style.background = '#696CFF';
+            for (let i = 1; i < categoryButtons.length; i++) {
+                categoryButtons[i].style.background = '#CCCEFF';
+            }
+            showImages(categoryButtons[0].getAttribute("data-category"));
+        }
+
+        // Category click event
+        categoryButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelectorAll(".category-btn").forEach(b => b.style.background = "#CCCEFF");
+                this.style.background = '#696CFF';
+                showImages(this.getAttribute("data-category"));
+            });
+        });
+    });
+</script> {% endcomment %}
+
+<div class="container mt-5">
+    {% for i in hotel_data %}
+    <div class="row">
+        <div class="col-8"><h3 class="mb-5">{{ i.name }}</h3></div>
+        <div class="col-4">
+            <a href="{% url 'hotel_view' id=i.id %}" class="float-end btn btn-primary text-white">Back</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Category Tabs -->
+    <div id="category-tabs" style="display: flex; gap: 10px; margin-bottom: 10px; overflow-x: auto; white-space: nowrap;">
+        
+        <!-- Pehle Room Images ka ek category button -->
+        <button class="category-btn" data-category="rooms"
+                style="padding: 8px 12px; border: none; cursor: pointer; background: gray; color: white;">
+            Rooms Images
+        </button>
+
+        <!-- Hotel Categories ke liye buttons -->
+        {% for category in hotel_categories %}
+            <button class="category-btn" data-category="{{ category.id }}" 
+                    style="padding: 8px 12px; border: none; cursor: pointer; background: gray; color: white;">
+                {{ category.image_category_name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <!-- Images Display -->
+    <div id="image-gallery"  class="mt-4" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let roomImages = [
+            {% for image in room_images %}
+                { id: "{{ image.id }}", category: "rooms", url: "{{ image.hotel_img.url }}" },
+            {% endfor %}
+        ];
+    
+        let hotelImages = [
+            {% for category, images in hotel_category_images.items %}
+                {% for image in images %}
+                    { id: "{{ image.id }}", category: "{{ category.id }}", url: "{{ image.hotel_img.url }}" },
+                {% endfor %}
+            {% endfor %}
+        ];
+    
+        let allImages = [...roomImages, ...hotelImages];
+    
+        let categoryButtons = document.querySelectorAll(".category-btn");
+        let imageGallery = document.getElementById("image-gallery");
+    
+        function showImages(categoryId) {
+            imageGallery.innerHTML = "";
+            let filteredImages = allImages.filter(img => img.category === categoryId);
+    
+            filteredImages.forEach(img => {
+                let imgElement = document.createElement("img");
+                imgElement.src = img.url;
+                imgElement.className = "responsive-img";
+                imageGallery.appendChild(imgElement);
+            });
+        }
+    
+        // Default active category "rooms"
+        let defaultCategory = "rooms";
+    
+        // Set default background colors
+        categoryButtons.forEach(button => {
+            if (button.getAttribute("data-category") === defaultCategory) {
+                button.style.background = "#696CFF"; // Active color
+            } else {
+                button.style.background = "#CCCEFF"; // Inactive color
+            }
+        });
+    
+        // Show default category images
+        showImages(defaultCategory);
+    
+        // Category button click event
+        categoryButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                categoryButtons.forEach(b => b.style.background = "#CCCEFF"); // Reset all to inactive color
+                this.style.background = "#696CFF"; // Active color
+                showImages(this.getAttribute("data-category"));
+            });
+        });
+    });
+    
+</script>
+
+<!-- CSS for Responsive Images -->
+<style>
+    .responsive-img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .responsive-img {
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+
+
+
+
+
+
+{%endblock%}

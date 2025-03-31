@@ -1,0 +1,89 @@
+{% extends "hotel_base.html" %}
+{% block content %}
+{% load static%}
+
+
+
+<div class="container">
+
+
+
+    {% if messages%}
+    {% for msg in messages %}
+    <div class="container mt-0">
+        <!-- Success Alert -->
+        {% if msg.tags == 'success' %}
+        <div id="success-alert" class="alert alert-success alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%else%}
+        <div id="danger-alert" class="alert alert-danger alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+    </div>
+    {%endfor%}
+    <script>
+      $(document).ready(function() {
+          // Fade out the alert after 5 seconds (5000 milliseconds)
+          setTimeout(function() {
+              $("#success-alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+              });
+          }, 1000);
+      });
+    </script>
+    {%endif%} 
+
+    <div class="container">
+
+
+
+    
+    
+    
+    <div class=" col-6 mt-4">
+          <form action="{% url 'hotel_do_login' %}"  method="post" >
+              {% csrf_token %}
+          <div class="row">
+              <div class="col mb-3 card m-2">
+                  <h5 class="mt-3 mb-3">Hotel Host Login </h5>
+                  <label for="nameBackdrop" class="form-label mb-2">Hotel Main Contact</label>
+                  <input
+                    type="number"
+                    name="contactnumber"
+                    id="nameBackdrop"
+                    class="form-control mb-3"
+                    placeholder="Enter Hotel Name"
+                    required
+                  />
+    
+                  
+    
+                  <label for="nameBackdrop" class="form-label mb-2">Password</label>
+                  <input
+                    type="text"
+                    name="password"
+                    id="nameBackdrop"
+                    class="form-control mb-3"
+                    placeholder="Enter Phone Number"
+                    
+                  />
+
+                  <a >Forgot Password</a>
+                  <input type="submit" class="btn btn-primary mb-4 mt-3" value="SUBMIT" />
+  
+                </div>
+        
+            </form>
+                
+
+
+
+    </div>
+</div>
+
+
+    {%endblock%}

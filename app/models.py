@@ -21,14 +21,20 @@ class Hotel(BaseModel):
     Represents a hotel, storing details such as name, description, pricing, availability,
     and customer ratings.
     """
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
     name = models.CharField(max_length=255)
-    description = models.TextField()
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+    landmark = models.TextField()
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2,null=True, blank=True)
     offer_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    badge = models.CharField(max_length=255)
-    total_rooms = models.PositiveIntegerField()
-    available_rooms = models.PositiveIntegerField()
+    badge = models.CharField(max_length=255,blank=True,null=True)
     rating = models.FloatField(default=0)
+    rating_count = models.IntegerField(default=0)
+    hotel_city = models.CharField(max_length=50,default=None)
+    hotel_main_img = models.ImageField(upload_to='hotel_main_image')
+    hotel_contact_number = models.IntegerField(default=0)
+    is_verify = models.BooleanField(default=False)
+    is_block = models.BooleanField(default=False)
+
 
     @property
     def remaining_price(self):
@@ -39,21 +45,35 @@ class Hotel(BaseModel):
     
     def __str__(self):
         return self.name
+    
+class Hotel_image_category(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    image_category_name = models.CharField(max_length=250,null=None,blank=True)
 
 
-class Room(BaseModel):
-    """
-    Represents a room in a hotel, storing details such as room type, pricing,
-    capacity, and available amenities.
-    """
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='rooms')
-    room_type = models.CharField(max_length=100)
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
-    capacity = models.IntegerField()
-    amenities = models.TextField(blank=True)
 
-    def __str__(self):
-        return f"{self.room_type} at {self.hotel.name}"
+
+class Hotel_all_images(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    img_category = models.ForeignKey(Hotel_image_category,on_delete=models.CASCADE)
+    hotel_img = models.ImageField(upload_to='hotel_all_image')
+
+class hotel_aminities(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    aminities_name = models.CharField(max_length=250,null=None,blank=True)
+    icon_code = models.CharField(max_length=250,null=None,blank=True)
+    
+class hotel_more_details(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    hotel_owner_name = models.CharField(max_length=250,default=None)
+    hotel_contact = models.IntegerField(default=0)
+    hotel_state = models.CharField(max_length=50,default=None)
+    hotel_city = models.CharField(max_length=50,default=None)
+    hotel_zipcode =  models.CharField(max_length=20,default=None)
+    hotel_address = models.CharField(max_length=250,default=None)
+    hotel_gstnumber = models.CharField(max_length=20,blank=True,null=True)
+
+
 
 
 class Address(BaseModel):
@@ -71,17 +91,7 @@ class Address(BaseModel):
         return f"{self.hotel.name} - {self.city}, {self.country}"
 
 
-class HotelImage(BaseModel):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to='hotel_images/')
-    image_type = models.CharField(
-        max_length=50, 
-        choices=[('Room', 'Room'), ('Lobby', 'Lobby'), ('Pool', 'Pool'), ('Restaurant', 'Restaurant')],
-        default='Room'
-    )
 
-    def __str__(self):
-        return f"{self.hotel.name} - {self.image_type}"
 
 
 class Review(BaseModel):
@@ -92,3 +102,20 @@ class Review(BaseModel):
 
     def __str__(self):
         return f"Review by {self.user.username} - {self.hotel.name}"
+    
+
+class Room_category(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    category_name = models.CharField(max_length=300,null=True,blank=True)
+    cat_description = models.TextField(null=True,blank=True)
+    category_code = models.CharField(max_length=300,null=True,blank=True)
+    category_badge = models.CharField(max_length=50,null=True,blank=True)
+    is_active = models.BooleanField(default=True)
+
+class room_category_image(models.Model):
+    hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE)
+    category = models.ForeignKey(Room_category,on_delete=models.CASCADE)
+    hotel_img = models.ImageField(upload_to='category_image')
+
+
+

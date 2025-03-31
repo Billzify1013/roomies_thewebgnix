@@ -1,0 +1,95 @@
+{% extends "hotel_base.html" %}
+{% block content %}
+{% load static%}
+
+
+
+<div class="container-fluid">
+
+
+
+    {% if messages%}
+    {% for msg in messages %}
+    <div class="container mt-0">
+        <!-- Success Alert -->
+        {% if msg.tags == 'success' %}
+        <div id="success-alert" class="alert alert-success alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%else%}
+        <a href="{% url 'billingplanpage' %}" style="text-decoration:none;">
+        <div id="danger-alert" class="alert alert-danger alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div></a>
+        {%endif%}
+    </div>
+    {%endfor%}
+    <script>
+      $(document).ready(function() {
+          // Fade out the alert after 5 seconds (5000 milliseconds)
+          setTimeout(function() {
+              $("#success-alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+              });
+          }, 1000);
+      });
+    </script>
+    {%endif%} 
+
+    <div class="">
+
+
+
+        {% if messages%}
+        {% for msg in messages %}
+        <div class=" mt-0">
+            <!-- Success Alert -->
+            {% if msg.tags == 'success' %}
+            <div id="success-alert" class="alert alert-success alert-dismissible" role="alert">
+                {{msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%else%}
+            <div id="danger-alert" class="alert alert-danger alert-dismissible" role="alert">
+                {{msg}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {%endif%}
+        </div>
+        {%endfor%}
+        <script>
+          $(document).ready(function() {
+              // Fade out the alert after 5 seconds (5000 milliseconds)
+              setTimeout(function() {
+                  $("#success-alert").fadeTo(500, 0).slideUp(500, function(){
+                      $(this).remove(); 
+                  });
+              }, 1000);
+          });
+        </script>
+        {%endif%} 
+    
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-9"><h4>Welcome <span class="text-success">{{request.user.first_name}}</span></h4></div>
+       
+        <div class="col-3">
+            <a href="{% url 'property_images' %}" class="btn btn-primary mb-2"><i class='bx bx-home-smile mb-1'></i> Images</a>
+            <a href="{% url 'aminities' %}" class="btn btn-primary mb-2"><i class='bx bx-home-smile mb-1'></i> Hotel Amenities</a>
+            <a href="{% url 'Rooms_hotel' %}" class="btn btn-primary"><i class='bx bx-home-smile mb-1'></i> Rooms Listing</a>
+        </div>
+       
+    </div>
+    
+
+
+</div>
+
+
+
+
+
+
+{%endblock%}

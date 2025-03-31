@@ -11,196 +11,42 @@
      <div class="row g-4 p-2">
             <!-- Card 1 -->
              
+            {%for hotel in hoteldata%}
             <div class="col-lg-4 col-md-4 col-sm-4 ">
-              <a href="{%url 'hotel_view' %}" style="text-decoration: none;">
+              <a href="{%url 'hotel_view' id=hotel.id %}" style="text-decoration: none;">
                 <div class="card">
-                    <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
+                  <img src="{{hotel.hotel_main_img.url}}" class="card-img-top" alt="Hotel Image"
+                  style="
+                    height: 250px; /* 🔹 Fixed height */
+                    width: 100%; /* 🔹 Full width */
+                    object-fit: cover; /* 🔹 Crop to fit */
+                    border-radius: 10px 10px 0px 0px; /* Optional: Rounded corners */">
                     <div class="card-body p-3">
                         
                         <div class="row">
                           <div class="col-8 col-md-8 col-sm-10">
-                            <h5 class="card-title text-black ">The Boho House</h5>
+                            <h5 class="card-title text-black ">{{hotel.name}}</h5>
                           </div>
                           <div class="col-4 col-md-4 col-sm-2 text-black">
-                            <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
+                            <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> {{hotel.rating}} ({{hotel.rating_count}}) </span> </span>
                         
                           </div>
+                          
 
                         </div>
                         
-                        <p class="card-text text-black">5.6km from city center. Mansaovar Scheme Jaipur</p>
-                        <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
+                        <p class="card-text text-black">{{hotel.landmark}}</p>
+                        <h5 class="card-title text-black">₹ {{hotel.offer_price}} &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ {{hotel.price_per_night}}</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
                         <span style="font-size:10px " class="text-black">+ ₹100 taxes and fees</span>
                       </div>
                 </div> </a>
             </div>
-         
+         {%endfor%}
 
 
-            <div class="col-lg-4 col-md-4 col-sm-6">
-              <div class="card">
-                  <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-                  <div class="card-body p-3">
-                      
-                      <div class="row">
-                        <div class="col-8 col-md-8 col-sm-10">
-                          <h5 class="card-title text-black ">The Boho House</h5>
-                        </div>
-                        <div class="col-4 col-md-4 col-sm-2">
-                          <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-                      
-                        </div>
-
-                      </div>
-                      
-                      <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-                      <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-                      <span style="font-size:10px">+ ₹100 taxes and fees</span>
-                    </div>
-              </div>
-          </div>
-
-
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="card">
-                <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-                <div class="card-body p-3">
-                    
-                    <div class="row">
-                      <div class="col-8 col-md-8 col-sm-10">
-                        <h5 class="card-title text-black ">The Boho House</h5>
-                      </div>
-                      <div class="col-4 col-md-4 col-sm-2">
-                        <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-                    
-                      </div>
-
-                    </div>
-                    
-                    <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-                    <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-                    <span style="font-size:10px">+ ₹100 taxes and fees</span>
-                  </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-4 col-md-4 col-sm-6">
-          <div class="card">
-              <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-              <div class="card-body p-3">
-                  
-                  <div class="row">
-                    <div class="col-8 col-md-8 col-sm-10">
-                      <h5 class="card-title text-black ">The Boho House</h5>
-                    </div>
-                    <div class="col-4 col-md-4 col-sm-2">
-                      <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-                  
-                    </div>
-
-                  </div>
-                  
-                  <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-                  <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-                  <span style="font-size:10px">+ ₹100 taxes and fees</span>
-                </div>
-          </div>
-      </div>
-
-
-      <div class="col-lg-4 col-md-4 col-sm-6">
-        <div class="card">
-            <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-            <div class="card-body p-3">
-                
-                <div class="row">
-                  <div class="col-8 col-md-8 col-sm-10">
-                    <h5 class="card-title text-black ">The Boho House</h5>
-                  </div>
-                  <div class="col-4 col-md-4 col-sm-2">
-                    <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-                
-                  </div>
-
-                </div>
-                
-                <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-                <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-                <span style="font-size:10px">+ ₹100 taxes and fees</span>
-              </div>
-        </div>
     </div>
 
-
-    <div class="col-lg-4 col-md-4 col-sm-6">
-      <div class="card">
-          <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-          <div class="card-body p-3">
-              
-              <div class="row">
-                <div class="col-8 col-md-8 col-sm-10">
-                  <h5 class="card-title text-black ">The Boho House</h5>
-                </div>
-                <div class="col-4 col-md-4 col-sm-2">
-                  <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-              
-                </div>
-
-              </div>
-              
-              <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-              <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-              <span style="font-size:10px">+ ₹100 taxes and fees</span>
-            </div>
-      </div>
   </div>
-
-
-  <div class="col-lg-4 col-md-4 col-sm-6">
-    <div class="card">
-        <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-        <div class="card-body p-3">
-            
-            <div class="row">
-              <div class="col-8 col-md-8 col-sm-10">
-                <h5 class="card-title text-black ">The Boho House</h5>
-              </div>
-              <div class="col-4 col-md-4 col-sm-2">
-                <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-            
-              </div>
-
-            </div>
-            
-            <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-            <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-            <span style="font-size:10px">+ ₹100 taxes and fees</span>
-          </div>
-    </div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-6">
-  <div class="card">
-      <img src="{% static 'img\imageroom.jpg'%}" class="card-img-top"  alt="...">
-      <div class="card-body p-3">
-          
-          <div class="row">
-            <div class="col-8 col-md-8 col-sm-10">
-              <h5 class="card-title text-black ">The Boho House</h5>
-            </div>
-            <div class="col-4 col-md-4 col-sm-2">
-              <span ><i class='bx bxs-star  mb-1' style="color:#FF0080"></i> 4.7 (416) </span> </span>
-          
-            </div>
-
-          </div>
-          
-          <p class="card-text">5.6km from city center. Mansaovar Scheme Jaipur</p>
-          <h5 class="card-title text-black">₹ 544 &nbsp;<span class="pb-2 text-gray" style="font-size:12px"><del>₹ 2555</del></span> <span class="pb-2 text-success" style="font-size:15px">75% OFF</span></h5>
-          <span style="font-size:10px">+ ₹100 taxes and fees</span>
-        </div>
-  </div>
-</div>
 
 
 

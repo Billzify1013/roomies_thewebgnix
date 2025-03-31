@@ -1,0 +1,297 @@
+{% extends "hotel_base.html" %}
+{% block content %}
+{% load static%}
+
+
+
+<div class="container">
+    <a href="{% url 'Hotel_homepage' %}" class="btn btn-primary ms-4 mt-3"><i class='bx bx-arrow-back'></i> Home Page</a>
+
+
+    {% if messages%}
+    {% for msg in messages %}
+    <div class="container mt-0">
+        <!-- Success Alert -->
+        {% if msg.tags == 'success' %}
+        <div id="success-alert" class="alert alert-success alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%else%}
+        <div id="danger-alert" class="alert alert-danger alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+    </div>
+    {%endfor%}
+    <script>
+      $(document).ready(function() {
+          // Fade out the alert after 5 seconds (5000 milliseconds)
+          setTimeout(function() {
+              $("#success-alert").fadeTo(500, 0).slideUp(500, function(){
+                  $(this).remove(); 
+              });
+          }, 1000);
+      });
+    </script>
+    {%endif%} 
+
+
+
+
+    
+    <div class="container">
+
+
+
+
+<div class="row mt-3">
+    <div class="col-4">
+        
+        <div id="col-4" class="mt-3" style="display:">
+            <form action="{% url 'create_rom_category' %}"  method="post" >
+                {% csrf_token %}
+            <div class="row">
+                <div class="col mb-3 card m-2">
+                    <h5 class="mt-3 mb-3">Create Category </h5>
+
+                   
+                    
+                    <label for="nameBackdrop" class="form-label mb-2">Category Name</label>
+                    <input
+                      type="text"
+                      name="categoryname"
+                      id="nameBackdrop"
+                      class="form-control mb-3"
+                      placeholder="Enter Service Name"
+                      required
+                    />
+
+                    <label for="nameBackdrop" class="form-label mb-2">Category Code</label>
+                    <input
+                      type="text"
+                      name="categorycode"
+                      id="nameBackdrop"
+                      class="form-control mb-3"
+                      placeholder="Enter Service Name"
+                      required
+                    />
+
+                    <label for="nameBackdrop" class="form-label mb-2">Category description</label>
+                    <input
+                      type="text"
+                      name="catdescription"
+                      id="nameBackdrop"
+                      class="form-control mb-3"
+                      placeholder="Enter Service Name"
+                      required
+                    />
+      
+  
+                    
+                    <input type="submit" class="btn btn-primary mb-4 mt-3" value="Create Category" />
+    
+                  </div>
+          
+              </form>
+        </div>
+        
+    </div>
+
+
+        
+    </div>
+
+
+    <div class="col-8">
+        
+
+    
+ <!-- Bootstrap Table with Header - Light -->
+ <div class="card mt-5">
+    <h5 class="card-header">All Category</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th>Category name</th>
+            <th>Category Code</th>
+            <th>description</th>
+            <th>Status</th>
+            
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+
+            {%for data in Category%}
+          <tr>
+            <td><strong>{{data.category_name}}</strong></td>
+            <td>{{data.category_code}}</td>
+            <td>
+               <span style="font-size:12px"> {{data.cat_description}}</span>
+            </td>
+            <td>
+                {%if data.is_active%}
+                <span class="text-success">Active</span>
+                {%else%}
+                <span class="text-danger">Not Active</span>
+                {%endif%}
+            </td>
+            
+            <td>
+                
+                      <button
+                        type="button"
+                        class="btn  dropdown-toggle hide-arrow"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        
+                      >
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                          data-bs-target="#updatecategory" onclick="getroomnumberpopup('{{ data.id }}', '{{ data.category_name }}', '{{ data.category_code }}', '{{ data.is_active }}', '{{data.cat_description}}')"><i class="bx bx-edit-alt me-1"></i>Edit</a></li>
+                        
+                      </ul>
+                    
+            </td>
+          </tr>
+          {%endfor%}
+   
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Bootstrap Table with Header - Light -->
+    
+  <button class="btn btn-primary mt-4 mb-4" onclick="showform()">Add Category Images</button>
+
+  <form action="{% url 'save_category_image' %}" id="mainform" style="display:none" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="row">
+    <div class="col mb-3 card m-2">
+        <h5 class="mt-3 mb-3">Add Rooms Category Image </h5>
+
+        <label for="nameBackdrop" class="form-label mb-2">Select Category</label>
+        <select class="form-control"  name="img_category" placeholder="Select Category" required>
+          
+            {%for i in Category%}
+            <option  value="{{i.id}}" >{{i.category_name}}</option>
+            {%endfor%}
+        </select>
+
+        <label for="nameBackdrop" class="form-label mb-2">Image</label>
+        <input
+          type="file"
+          name="image"
+          id="nameBackdrop"
+          class="form-control mb-3"
+          placeholder="Enter Hotel Name"
+          required
+        />
+
+
+        
+        <input type="submit" class="btn btn-primary mb-4 mt-3" value="Upload Image" />
+
+      </div>
+
+  </form>
+
+    </div>
+
+    {% for category, images in catimages.items %}
+    <h2 class="mt-2 mb-2">{{ category.category_name }}</h2>
+    <div class="image-gallery">
+        {% for image in images %}
+            {% if image.hotel_img %}
+                <img src="{{ image.hotel_img.url }}" alt="{{ category.category_name }}" style="border-radius:10px" height='200' width="200">
+                <a href="{% url 'deletcatimg' pk=image.id %}" style="margin-left:-25px"><i class='bx bxs-trash'></i></a>
+            {% else %}
+                <p>No image available for this category.</p>
+            {% endif %}
+        {% empty %}
+            <p>No images available for this category.</p>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+</div>
+
+<script>
+    function showform() {
+        document.getElementById('mainform').style.display="block";
+    }
+
+    function getroomnumberpopup(id, name, code, isActive, description) {
+        document.getElementById("categoryId").value = id;
+        document.getElementById("categoryName").value = name;
+        document.getElementById("categoryCode").value = code;
+        document.getElementById("categoryDesc").value = description;
+    
+        // Set dropdown value for Active/Inactive
+        document.getElementById("categoryStatus").value = isActive.toLowerCase();
+    }
+    
+</script>
+
+
+<!-- Modal: Update Category -->
+<div class="modal fade" id="updatecategory" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="{% url 'editcategory' %}" method="POST" class="modal-content">
+            {% csrf_token %}
+            <input type="hidden" id="categoryId" name="category_id" />
+
+            <div class="modal-header">
+                <h5 class="modal-title">Update Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input type="text" id="categoryName" name="category_name" class="form-control" placeholder="Enter Category Name" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryCode" class="form-label">Category Code</label>
+                    <input type="text" id="categoryCode" name="category_code" class="form-control" placeholder="Enter Category Code" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Category Code</label>
+                    <input type="text" id="categoryDesc" name="cat_description" class="form-control" placeholder="Enter Category description" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryStatus" class="form-label">Status</label>
+                    <select id="categoryStatus" name="is_active" class="form-control" required>
+                        <option value="True">Active</option>
+                        <option value="False">Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-warning">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{%endblock%}
